@@ -193,5 +193,5 @@ def customer_details(request, customer_id):
                 details.stri_customer_id,
             )
     except Customer.DoesNotExist:
-        return Response("nahi bhai muje...")
+        return Response("not exist...")
 
