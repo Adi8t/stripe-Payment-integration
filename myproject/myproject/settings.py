@@ -84,11 +84,11 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
+        'NAME': 'stripe_payment',
         'USER': 'postgres',
-        'PASSWORD': '2003',
+        'PASSWORD': 'postgres',
         'HOST': 'localhost',
-        'PORT': '5432',  # Default is '5432'
+        'PORT': '5432', 
     }
 }
 
@@ -134,7 +134,8 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STRIPE_SECRET_KEY = 'sk_test_51PV52jP0MomIaY3SCWNIYI4Il2bEANsP09xZdpd6YKlERtQ18Q0wjSto59xINWwUUnzWXke10wUcVQz6QFWFKz1a00ElSBXiuo'
 STRIPE_PUBLISHABLE_KEY = 'pk_test_51PV52jP0MomIaY3StrKzOR2pNh59q9ffiGjmXuZTmAxY7R470ybVj3wmt51WMKhPVUXXI0VVPmpjxJekydr5hatZ00OM02qkCg'
-
+STRIPE_ENDPOINT_SECRET = 'whsec_EfjIyfAPJWYEbwqMSiqzOdfZMt2CrDcK'
+    
 
 # settings.py
 

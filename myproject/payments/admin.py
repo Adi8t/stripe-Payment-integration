@@ -16,4 +16,4 @@ class customerpanel(admin.ModelAdmin):
 
 @admin.register(Subscription)
 class  subscriptionpanel(admin.ModelAdmin):
-    list_display = ['id','stri_customer_id','customer','price',]
+    list_display = ['id','customer','price',]

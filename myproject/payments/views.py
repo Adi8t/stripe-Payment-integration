@@ -125,15 +125,16 @@ import stripe
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
-
 @api_view(["POST"])
 def create_subscription(request):
     if request.method != "POST":
-        return Response({"error": "Method not allowed"})
+        return Response({"error": "Method not allowed"}, status=405)
 
     customer_id = request.data.get("customer_id")
     price_id = request.data.get("price_id")
+
     try:
+        # Retrieve the customer and price objects
         customer = Customer.objects.get(id=customer_id)
         price = Price.objects.get(id=price_id)
         product = price.product
@@ -149,49 +150,84 @@ def create_subscription(request):
                 }
             ],
             mode="subscription",
-            success_url =  settings.YOUR_DOMAIN
-            + "/success?session_id={CHECKOUT_SESSION_ID}",
+            success_url=settings.YOUR_DOMAIN + "/success?session_id={CHECKOUT_SESSION_ID}",
             cancel_url=settings.YOUR_DOMAIN + "/cancel",
         )
 
-        # Store subscription ID in database
+        # Store subscription details in the database
         Subscription.objects.create(
-            customer = customer,
-            price = price,
-            product = product,
-            stri_customer_id = session.customer
-        )   
-
-        return Response(
-            {
-                "redirect_url": session.url,
-            }
+            customer=customer,
+            price=price,
+            product=product, 
+            stri_customer_id=session.customer, 
         )
 
-    except Customer.DoesNotExist:
-        return Response({"error": " Customer does not exist."})
+        # Return the URL for redirection
+        return Response({
+            "redirect_url": session.url
+        })
 
+    except Customer.DoesNotExist:
+        return Response({"error": "Customer does not exist."}, status=404)
     except Price.DoesNotExist:
-        return Response({"error": " Price does not exist."})
+        return Response({"error": "Price does not exist."}, status=404)
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)
 
 
 
-@api_view(['POSt'])
+@api_view(['POST'])
 def customer_details(request, customer_id):
-
     try:
-        customer = Customer.objects.get(id = customer_id)
-
-        customer_details = []
-        for details in customer:
-            customer_details.append(
-                details.stri_customer_id,
-                details.name 
-            )
-            return Response(
-                details.name,
-                details.stri_customer_id,
-            )
+        customer = Customer.objects.get(id=customer_id)  # id ko `customer_id` se compare kar rahe hain
+        return Response({
+            "customer_id": customer.stri_customer_id,
+            "name": customer.name,
+        })
     except Customer.DoesNotExist:
-        return Response("not exist...")
+        return Response({"error": "Customer does not exist"}, status=404)
 
+
+# stripe.api_key = settings.STRIPE_SECRET_KEY
+
+# @api_view(['POST'])
+# def stripe_webhook(request):
+#     payload = request.body
+#     sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
+#     endpoint_secret = settings.STRIPE_ENDPOINT_SECRET
+
+#     try:
+#         # Verify the event using Stripe's library
+#         event = stripe.Webhook.construct_event(
+#             payload, sig_header, endpoint_secret
+#         )
+#     except ValueError:
+#         # Invalid payload
+#         return Response({'error': 'Invalid payload'}, status=400)
+
+#     # Handle the event
+#     if event['type'] == 'invoice.payment_succeeded':
+#         invoice = event['data']['object']
+#         subscription_id = invoice.get('subscription')
+#         invoice_id = invoice.get('id')
+#         invoice_url = invoice.get('hosted_invoice_url')
+
+#         try:
+#             # Update the subscription with the invoice details
+#             subscription = Subscription.objects.get(stri_subscription_id=subscription_id)
+#             subscription.invoice_id = invoice_id
+#             subscription.invoice_url = invoice_url
+#             subscription.save()
+
+#             # Also update the customer with the invoice details
+#             customer = subscription.customer
+#             customer.invoice_id = invoice_id
+#             customer.invoice_url = invoice_url
+#             customer.save()
+
+#         except Subscription.DoesNotExist:
+#             return Response({'error': 'Subscription not found'}, status=404)
+#         except Customer.DoesNotExist:
+#             return Response({'error': 'Customer not found'}, status=404)
+
+#     return Response({'status': 'success'}, status=200)
