@@ -11,7 +11,7 @@ urlpatterns = [
          name='create-price'),
 
     path('create-customer/',
-         views.Customer_create,
+         views.create_customer,
          name="create_customer"),
 
     path('create-subscription/',
@@ -22,8 +22,7 @@ urlpatterns = [
           views.customer_details,
           name='customer-details'),
 
-    # path('stripe-webhook/',
-    #       views.stripe_webhook,
-    #       name='stripe-webhook/'),
-
+    path('stripe-webhook/',
+          views.stripe_webhook,
+          name='stripe-webhook/'),
 ]

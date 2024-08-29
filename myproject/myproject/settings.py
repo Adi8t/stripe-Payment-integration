@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-(yoj^udlytvjsgq$rpl7v50d+m_j7boi=v-o-ckm%35)f4t6(q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -132,11 +132,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 STRIPE_SECRET_KEY = 'sk_test_51PV52jP0MomIaY3SCWNIYI4Il2bEANsP09xZdpd6YKlERtQ18Q0wjSto59xINWwUUnzWXke10wUcVQz6QFWFKz1a00ElSBXiuo'
 STRIPE_PUBLISHABLE_KEY = 'pk_test_51PV52jP0MomIaY3StrKzOR2pNh59q9ffiGjmXuZTmAxY7R470ybVj3wmt51WMKhPVUXXI0VVPmpjxJekydr5hatZ00OM02qkCg'
-STRIPE_ENDPOINT_SECRET = 'whsec_EfjIyfAPJWYEbwqMSiqzOdfZMt2CrDcK'
-    
+STRIPE_ENDPOINT_SECRET = 'whsec_JuSXGZ9eoXLSmoE9RHdfcjraWsKYI0Hy'  # Replace with your actual secret
 
 # settings.py
-
 YOUR_DOMAIN = 'http://localhost:8000'  # Replace with your actual domain

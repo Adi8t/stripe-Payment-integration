@@ -28,17 +28,15 @@ class Customer(models.Model):
     stri_customer_id = models.CharField(max_length=100, editable=False)
     name = models.CharField(max_length=20)                      
     email = models.EmailField()
-    invoice_id = models.CharField(max_length=100, null=True, editable=False)
-    invoice_url = models.CharField(max_length=200, null=True, editable=False)
 
 class Subscription(models.Model):
     stri_customer_id = models.CharField(max_length=100, editable=False)
+    stri_subscription_id = models.CharField(max_length=100,editable=False )
+    invoice_id = models.CharField(max_length=100, null=True, editable=False)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     price = models.ForeignKey(Price, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-
-
-
+    
     def __str__(self):
         return f"{self.customer.name} - {self.product.name} - {self.price.unit_amount} {self.price.currency}"
 
