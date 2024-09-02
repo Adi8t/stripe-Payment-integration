@@ -1,1 +1,1 @@
-# Payment-integration
+This repository demonstrates how to integrate Stripe payments into a Django web application. It includes examples for processing one-time payments, managing subscriptions, and handling webhooks for events such as payment success or failure.
