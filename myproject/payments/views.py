@@ -223,8 +223,7 @@ def get_default_card(request, customer_id):
         print(f"Retrieved payment method: {payment_method}")
         
         # Extract card details from the payment method
-        card = payment_method.card
-        
+        card = payment_method.card 
         return Response({
             'default_card_id': payment_method.id,
             'last4': card.last4,
