@@ -25,4 +25,9 @@ urlpatterns = [
     path('stripe-webhook/',
           views.stripe_webhook,
           name='stripe-webhook/'),
+
+    path('get-default-card/<int:customer_id>/', 
+         views.get_default_card, 
+         name='get_default_card'),
+
 ]
