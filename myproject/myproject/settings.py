@@ -133,9 +133,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STRIPE_SECRET_KEY = 'sk_test_51PV52jP0MomIaY3SCWNIYI4Il2bEANsP09xZdpd6YKlERtQ18Q0wjSto59xINWwUUnzWXke10wUcVQz6QFWFKz1a00ElSBXiuo'
-STRIPE_PUBLISHABLE_KEY = 'pk_test_51PV52jP0MomIaY3StrKzOR2pNh59q9ffiGjmXuZTmAxY7R470ybVj3wmt51WMKhPVUXXI0VVPmpjxJekydr5hatZ00OM02qkCg'
-STRIPE_ENDPOINT_SECRET = 'whsec_JuSXGZ9eoXLSmoE9RHdfcjraWsKYI0Hy'  # Replace with your actual secret
 
 # settings.py
 YOUR_DOMAIN = 'http://localhost:8000'  # Replace with your actual domain
